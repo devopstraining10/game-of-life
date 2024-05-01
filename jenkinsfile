@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+tools {
+jdk 'java8'
+
+}
+    stages {
+        stage('clone') {
+            steps {
+                echo 'clone from github to jenkins'
+                git 'https://github.com/devopstraining10/game-of-life.git'
+            }
+        }
+        stage('sonar analysis') {
+            steps {
+                echo 'quality check of the code'
+                sh 'mvn clean compile'
+                sh 'mvn sonar:sonar'
+            }
+        }
+        stage('build') {
+            steps {
+                echo 'Build using maven tool'
+                sh 'mvn clean install'
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'Deploy using tomcat'
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-y', path: '', url: 'http://34.204.60.38:8081/')], contextPath: 'gameoflife-pipeline', war: '**/*.war'
+            }
+        }
+    }
+}
