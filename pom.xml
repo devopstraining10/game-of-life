@@ -27,10 +27,10 @@
 <url>http://35.153.57.231:8081/repository/game-of-life-repo-snapshot/</url>
 </snapshotRepository>
 
-<releaseRepository>
+<repository>
 <id>NexusRepo</id>
 <url>http://35.153.57.231:8081/repository/game-of-life-repo/</url>
-</releaseRepository>
+</repository>
 <distributionManagement>
     <scm>
         <connection>scm:git:git@github.com:${github.account}/game-of-life.git</connection>
